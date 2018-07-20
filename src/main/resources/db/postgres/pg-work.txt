@@ -1,0 +1,30 @@
+-- sample backing up database from docker
+--  docker exec -it postgres pg_dump -U cataloguser -d catalogs > catalogs.sql
+
+-- Find duplicated titles
+-- set the default schema
+SET search_path TO catalog_app;
+
+-- Find duplicates
+select title from (
+	select title, ROW_NUMBER() OVER(PARTITION BY title ORDER BY title asc) AS ROW
+	FROM catalog_app.product
+) dups where dups.ROW > 1;
+
+
+select id, title from catalog_app.product
+where title in (
+	select title from (
+		select title, ROW_NUMBER() OVER(PARTITION BY title ORDER BY title asc) AS ROW
+		FROM catalog_app.product
+	) dups where dups.ROW > 1
+)
+order by title asc;
+
+-- find products with their categories
+select p.id, p.title, c.category_name from product p
+join product_category pc
+on p.id = pc.product_id
+join category c
+on pc.category_id = c.id
+where c.id = 15;

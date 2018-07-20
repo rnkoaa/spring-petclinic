@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:10
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=petclinicuser"
+      - "POSTGRES_DB=petclinic"
+      - "POSTGRES_PASSWORD=petclinicuser"
+    networks:
+      infranet:
+        aliases:
+          - 'postgres'
+    volumes:
+      - "pg-data-volume:/var/lib/postgresql/data"
+
+volumes:
+  pg-data-volume:
+
+networks:
+  infranet:

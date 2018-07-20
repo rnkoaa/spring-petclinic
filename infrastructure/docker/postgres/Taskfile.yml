@@ -1,0 +1,34 @@
+# github.com/go-task/task
+
+version: '2'
+
+# vars:
+  # GREETING: Hello, World!
+
+tasks:
+  default:
+    cmds:
+      - docker-compose up -d
+    silent: true
+
+  rmi:
+    deps: ["down"]
+    cmds:
+      - docker rmi petclinic_postgres
+    silent: true
+
+  rmv:
+    deps: ["down"]
+    cmds:
+      - docker volume rm  petclinic_pg-data-volume
+    silent: true
+
+  build:
+    cmds:
+      - docker-compose build
+    silent: true
+
+  down:
+    cmds:
+      - docker-compose down
+    silent: true
