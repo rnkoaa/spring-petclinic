@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-public interface VetRepository extends Repository<Vet, Integer> {
+public interface VetRepository extends Repository<Vet, Long> {
 
     /**
      * Retrieve all <code>Vet</code>s from the data store.

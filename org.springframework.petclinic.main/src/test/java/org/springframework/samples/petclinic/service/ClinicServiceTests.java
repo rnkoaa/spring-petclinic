@@ -140,9 +140,9 @@ public class ClinicServiceTests {
     public void shouldFindAllPetTypes() {
         Collection<PetType> petTypes = this.pets.findPetTypes();
 
-        PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1);
+        PetType petType1 = EntityUtils.getById(petTypes, PetType.class, 1L);
         assertThat(petType1.getName()).isEqualTo("cat");
-        PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4);
+        PetType petType4 = EntityUtils.getById(petTypes, PetType.class, 4L);
         assertThat(petType4.getName()).isEqualTo("snake");
     }
 
@@ -155,7 +155,7 @@ public class ClinicServiceTests {
         Pet pet = new Pet();
         pet.setName("bowser");
         Collection<PetType> types = this.pets.findPetTypes();
-        pet.setType(EntityUtils.getById(types, PetType.class, 2));
+        pet.setType(EntityUtils.getById(types, PetType.class, 2L));
         pet.setBirthDate(LocalDate.now());
         owner6.addPet(pet);
         assertThat(owner6.getPets().size()).isEqualTo(found + 1);
@@ -187,7 +187,7 @@ public class ClinicServiceTests {
     public void shouldFindVets() {
         Collection<Vet> vets = this.vets.findAll();
 
-        Vet vet = EntityUtils.getById(vets, Vet.class, 3);
+        Vet vet = EntityUtils.getById(vets, Vet.class, 3L);
         assertThat(vet.getLastName()).isEqualTo("Douglas");
         assertThat(vet.getNrOfSpecialties()).isEqualTo(2);
         assertThat(vet.getSpecialties().get(0).getName()).isEqualTo("dentistry");
@@ -212,11 +212,11 @@ public class ClinicServiceTests {
 
     @Test
     public void shouldFindVisitsByPetId() throws Exception {
-        Collection<Visit> visits = this.visits.findByPetId(7);
+        Collection<Visit> visits = this.visits.findByPetId(7L);
         assertThat(visits.size()).isEqualTo(2);
         Visit[] visitArr = visits.toArray(new Visit[visits.size()]);
         assertThat(visitArr[0].getDate()).isNotNull();
-        assertThat(visitArr[0].getPetId()).isEqualTo(7);
+        assertThat(visitArr[0].getPetId()).isEqualTo(7L);
     }
 
 }
