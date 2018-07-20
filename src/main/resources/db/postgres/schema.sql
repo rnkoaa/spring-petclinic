@@ -28,7 +28,7 @@ SET default_tablespace = '';
 
 SET default_with_oids = false;
 
-CREATE TABLE IF NOT EXISTS vets (
+CREATE TABLE IF NOT EXISTS petclinic_app.vets (
   id BIGSERIAL PRIMARY KEY,
   first_name TEXT,
   last_name TEXT
@@ -41,7 +41,7 @@ CREATE INDEX IF NOT EXISTS vet_first_name_idx ON vets ((lower(first_name)));
 --
 -- Name: specialties; Type: TABLE; Schema: petclinic_app; Owner: petclinicuser
 --
-CREATE TABLE IF NOT EXISTS specialties (
+CREATE TABLE IF NOT EXISTS petclinic_app.specialties (
   id    BIGSERIAL PRIMARY KEY,
   name  TEXT
 );
@@ -49,18 +49,18 @@ CREATE TABLE IF NOT EXISTS specialties (
 ALTER TABLE specialties OWNER TO petclinicuser;
 CREATE INDEX IF NOT EXISTS specialty_name_idx ON vets ((lower(name)));
 
-CREATE TABLE IF NOT EXISTS vet_specialties (
+CREATE TABLE IF NOT EXISTS petclinic_app.vet_specialties (
   vet_id        BIGINT PRIMARY KEY,
   specialty_id  BIGINT NOT NULL,
   FOREIGN KEY (vet_id) REFERENCES vets(id),
-  FOREIGN KEY (specialty_id) REFERENCES specialties(id),
+  FOREIGN KEY (specialty_id) REFERENCES specialties(id)
 );
 
 ALTER TABLE vet_specialties OWNER TO petclinicuser;
 
 CREATE UNIQUE INDEX vet_id_specialty_id ON vet_specialties (vet_id,specialty_id);
 
-CREATE TABLE IF NOT EXISTS types (
+CREATE TABLE IF NOT EXISTS petclinic_app.types (
   id    BIGSERIAL PRIMARY KEY,
   name  TEXT
 );
@@ -68,7 +68,7 @@ ALTER TABLE types OWNER TO petclinicuser;
 
 CREATE INDEX IF NOT EXISTS types_name_idx ON types ((lower(name)));
 
-CREATE TABLE IF NOT EXISTS owners (
+CREATE TABLE IF NOT EXISTS petclinic_app.owners (
   id            BIGSERIAL PRIMARY KEY,
   first_name    TEXT,
   last_name TEXT,
@@ -80,8 +80,8 @@ ALTER TABLE owners OWNER TO petclinicuser;
 CREATE INDEX IF NOT EXISTS owners_last_name_idx ON owners ((lower(last_name)));
 CREATE INDEX IF NOT EXISTS owners_first_name_idx ON owners ((lower(first_name)));
 
-CREATE TABLE IF NOT EXISTS pets (
-  id BIGINT NOT NULL,
+CREATE TABLE IF NOT EXISTS petclinic_app.pets (
+  id BIGSERIAL PRIMARY KEY,
   name TEXT,
   birth_date DATE,
   type_id BIGINT NOT NULL,
@@ -96,7 +96,7 @@ ALTER TABLE pets OWNER TO petclinicuser;
 
 
 -- visits type: TABLE
-CREATE TABLE IF NOT EXISTS visits (
+CREATE TABLE IF NOT EXISTS petclinic_app.visits (
   id BIGSERIAL PRIMARY KEY,
   pet_id BIGINT NOT NULL,
   visit_date DATE,

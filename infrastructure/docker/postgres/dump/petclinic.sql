@@ -182,6 +182,18 @@ ALTER SEQUENCE petclinic_app.types_id_seq OWNED BY petclinic_app.types.id;
 
 
 --
+-- Name: vet_specialties; Type: TABLE; Schema: petclinic_app; Owner: petclinicuser
+--
+
+CREATE TABLE petclinic_app.vet_specialties (
+    vet_id bigint NOT NULL,
+    specialty_id bigint NOT NULL
+);
+
+
+ALTER TABLE petclinic_app.vet_specialties OWNER TO petclinicuser;
+
+--
 -- Name: vets; Type: TABLE; Schema: petclinic_app; Owner: petclinicuser
 --
 
@@ -357,6 +369,18 @@ COPY petclinic_app.types (id, name) FROM stdin;
 
 
 --
+-- Data for Name: vet_specialties; Type: TABLE DATA; Schema: petclinic_app; Owner: petclinicuser
+--
+
+COPY petclinic_app.vet_specialties (vet_id, specialty_id) FROM stdin;
+2	1
+3	2
+4	2
+5	1
+\.
+
+
+--
 -- Data for Name: vets; Type: TABLE DATA; Schema: petclinic_app; Owner: petclinicuser
 --
 
@@ -457,6 +481,14 @@ ALTER TABLE ONLY petclinic_app.types
 
 
 --
+-- Name: vet_specialties vet_specialties_pkey; Type: CONSTRAINT; Schema: petclinic_app; Owner: petclinicuser
+--
+
+ALTER TABLE ONLY petclinic_app.vet_specialties
+    ADD CONSTRAINT vet_specialties_pkey PRIMARY KEY (vet_id);
+
+
+--
 -- Name: vets vets_pkey; Type: CONSTRAINT; Schema: petclinic_app; Owner: petclinicuser
 --
 
@@ -508,6 +540,13 @@ CREATE INDEX vet_first_name_idx ON petclinic_app.vets USING btree (lower(first_n
 
 
 --
+-- Name: vet_id_specialty_id; Type: INDEX; Schema: petclinic_app; Owner: petclinicuser
+--
+
+CREATE UNIQUE INDEX vet_id_specialty_id ON petclinic_app.vet_specialties USING btree (vet_id, specialty_id);
+
+
+--
 -- Name: vet_last_name_idx; Type: INDEX; Schema: petclinic_app; Owner: petclinicuser
 --
 
@@ -528,6 +567,22 @@ ALTER TABLE ONLY petclinic_app.pets
 
 ALTER TABLE ONLY petclinic_app.pets
     ADD CONSTRAINT pets_type_id_fkey FOREIGN KEY (type_id) REFERENCES petclinic_app.types(id);
+
+
+--
+-- Name: vet_specialties vet_specialties_specialty_id_fkey; Type: FK CONSTRAINT; Schema: petclinic_app; Owner: petclinicuser
+--
+
+ALTER TABLE ONLY petclinic_app.vet_specialties
+    ADD CONSTRAINT vet_specialties_specialty_id_fkey FOREIGN KEY (specialty_id) REFERENCES petclinic_app.specialties(id);
+
+
+--
+-- Name: vet_specialties vet_specialties_vet_id_fkey; Type: FK CONSTRAINT; Schema: petclinic_app; Owner: petclinicuser
+--
+
+ALTER TABLE ONLY petclinic_app.vet_specialties
+    ADD CONSTRAINT vet_specialties_vet_id_fkey FOREIGN KEY (vet_id) REFERENCES petclinic_app.vets(id);
 
 
 --

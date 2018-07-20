@@ -31,7 +31,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-public interface OwnerRepository extends Repository<Owner, Integer> {
+public interface OwnerRepository extends Repository<Owner, Long> {
 
     /**
      * Retrieve {@link Owner}s from the data store by last name, returning all owners
@@ -51,7 +51,7 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
      */
     @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
     @Transactional(readOnly = true)
-    Owner findById(@Param("id") Integer id);
+    Owner findById(@Param("id") Long id);
 
     /**
      * Save an {@link Owner} to the data store, either inserting or updating it.

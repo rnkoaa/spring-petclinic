@@ -1,5 +1,5 @@
 -- sample backing up database from docker
---  docker exec -it postgres pg_dump -U cataloguser -d catalogs > catalogs.sql
+--  docker exec -it postgres pg_dump -U petclinicuser -d petclinic > petclinic.sql
 
 -- Find duplicated titles
 -- set the default schema

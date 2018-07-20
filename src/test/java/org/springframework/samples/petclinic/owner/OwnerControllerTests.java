@@ -31,7 +31,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @WebMvcTest(OwnerController.class)
 public class OwnerControllerTests {
 
-    private static final int TEST_OWNER_ID = 1;
+    private static final long TEST_OWNER_ID = 1;
 
     @Autowired
     private MockMvc mockMvc;

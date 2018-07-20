@@ -30,7 +30,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Sam Brannen
  * @author Michael Isvy
  */
-public interface PetRepository extends Repository<Pet, Integer> {
+public interface PetRepository extends Repository<Pet, Long> {
 
     /**
      * Retrieve all {@link PetType}s from the data store.
@@ -46,7 +46,7 @@ public interface PetRepository extends Repository<Pet, Integer> {
      * @return the {@link Pet} if found
      */
     @Transactional(readOnly = true)
-    Pet findById(Integer id);
+    Pet findById(Long id);
 
     /**
      * Save a {@link Pet} to the data store, either inserting or updating it.
