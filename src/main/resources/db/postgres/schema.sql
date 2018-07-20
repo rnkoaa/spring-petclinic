@@ -51,22 +51,14 @@ CREATE INDEX IF NOT EXISTS specialty_name_idx ON vets ((lower(name)));
 
 CREATE TABLE IF NOT EXISTS vet_specialties (
   vet_id        BIGINT PRIMARY KEY,
-  specialty_id  BIGINT NOT NULL
+  specialty_id  BIGINT NOT NULL,
+  FOREIGN KEY (vet_id) REFERENCES vets(id),
+  FOREIGN KEY (specialty_id) REFERENCES specialties(id),
 );
 
 ALTER TABLE vet_specialties OWNER TO petclinicuser;
 
 CREATE UNIQUE INDEX vet_id_specialty_id ON vet_specialties (vet_id,specialty_id);
-
-ALTER TABLE vet_specialties
-   ADD CONSTRAINT fk_vet_specialities_vet_id
-   FOREIGN KEY (vet_id)
-   REFERENCES vets(id);
-
-ALTER TABLE vet_specialties
-  ADD CONSTRAINT fk_vet_specialities_specialty_id
-  FOREIGN KEY (specialty_id)
-  REFERENCES specialties(id);
 
 CREATE TABLE IF NOT EXISTS types (
   id    BIGSERIAL PRIMARY KEY,
@@ -85,9 +77,7 @@ CREATE TABLE IF NOT EXISTS owners (
   telephone TEXT
 );
 ALTER TABLE owners OWNER TO petclinicuser;
-
 CREATE INDEX IF NOT EXISTS owners_last_name_idx ON owners ((lower(last_name)));
-
 CREATE INDEX IF NOT EXISTS owners_first_name_idx ON owners ((lower(first_name)));
 
 CREATE TABLE IF NOT EXISTS pets (
@@ -95,34 +85,23 @@ CREATE TABLE IF NOT EXISTS pets (
   name TEXT,
   birth_date DATE,
   type_id BIGINT NOT NULL,
-  owner_id BIGINT NOT NULL
+  owner_id BIGINT NOT NULL,
+  FOREIGN KEY (owner_id) REFERENCES owners(id),
+  FOREIGN KEY (type_id) REFERENCES types(id)
 ) ;
 
 ALTER TABLE pets OWNER TO petclinicuser;
-
 CREATE INDEX IF NOT EXISTS pets_name_idx ON pets ((lower(name)));
-
 ALTER TABLE pets OWNER TO petclinicuser;
 
-ALTER TABLE pets
-   ADD CONSTRAINT fk_pets_owners_owner_id
-   FOREIGN KEY (owner_id)
-   REFERENCES owners(id);
-
-ALTER TABLE pets
-  ADD CONSTRAINT fk_pets_types_type_id
-  FOREIGN KEY (type_id)
-  REFERENCES types(id);
 
 -- visits type: TABLE
 CREATE TABLE IF NOT EXISTS visits (
   id BIGSERIAL PRIMARY KEY,
   pet_id BIGINT NOT NULL,
   visit_date DATE,
-  description TEXT
+  description TEXT,
+  FOREIGN KEY (pet_id) REFERENCES pets(id)
 );
 
 ALTER TABLE visits OWNER TO petclinicuser;
-
-ALTER TABLE visits
-  ADD CONSTRAINT fk_visits_pets_pet_id FOREIGN KEY (pet_id) REFERENCES pets(id);
