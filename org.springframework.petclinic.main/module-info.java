@@ -25,6 +25,4 @@ module org.springframework.petclinic.main {
     requires cache.api;
     requires spring.context;
     requires spring.tx;
-
-
 }
