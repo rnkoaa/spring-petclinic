@@ -19,7 +19,7 @@ SET row_security = off;
 -- Name: petclinic_app; Type: SCHEMA; Schema: -; Owner: petclinicuser
 --
 
-CREATE SCHEMA petclinic_app;
+CREATE SCHEMA IF NOT EXISTS petclinic_app;
 
 
 ALTER SCHEMA petclinic_app OWNER TO petclinicuser;
