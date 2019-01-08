@@ -1,19 +1,8 @@
-target/*
-**/*/.settings/
-.settings/*
-.classpath
-.project
-.idea
-*.iml
-/target
-.sts4-cache/
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-_site/
-postgres-data
+# Ignore Gradle project-specific cache directory
+.gradle
 
-**/*/target/
+# Ignore Gradle build output directory
+build
+target/
 
+.idea/

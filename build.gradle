@@ -1,0 +1,70 @@
+
+buildscript {
+    ext {
+        springBootVersion = '2.1.1.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath(
+          "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'idea'
+//    id 'org.springframework.boot'
+}
+
+
+subprojects {
+    afterEvaluate {
+        repositories {
+            jcenter()
+        }
+
+        sourceCompatibility = 11
+
+        compileJava {
+            inputs.property("moduleName", moduleName)
+            doFirst {
+                options.compilerArgs = [
+                        '--module-path', classpath.asPath,
+                ]
+                classpath = files()
+            }
+        }
+
+        dependencies {
+            compile group: 'org.glassfish.jaxb', name: 'jaxb-runtime', version: '2.4.0-b180830.0438'
+        }
+
+//        compileTestJava {
+//            inputs.property("moduleName", moduleName)
+//            doFirst {
+//                options.compilerArgs = [
+//                        '--module-path', classpath.asPath,
+//                        '--add-modules', 'junit',
+//                        '--add-reads', "$moduleName=junit",
+//                        '--patch-module', "$moduleName=" + files(sourceSets.test.java.srcDirs).asPath,
+//                ]
+//                classpath = files()
+//            }
+//        }
+
+//        test {
+//            inputs.property("moduleName", moduleName)
+//            doFirst {
+//                jvmArgs = [
+//                        '--module-path', classpath.asPath,
+////                        '--add-modules', 'ALL-MODULE-PATH',
+////                        '--add-reads', "$moduleName=junit",
+//                        '--patch-module', "$moduleName=" + files(sourceSets.test.java.outputDir).asPath,
+//                ]
+//                classpath = files()
+//            }
+//        }
+    }
+}
