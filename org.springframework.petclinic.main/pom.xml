@@ -22,6 +22,7 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.assist.version>3.24.1-GA</java.assist.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <!-- Web dependencies -->
@@ -31,6 +32,8 @@
         <wro4j.version>1.8.0</wro4j.version>
 
         <cobertura.version>2.7</cobertura.version>
+
+        <mockito.core.version>2.23.4</mockito.core.version>
 
     </properties>
 
@@ -58,12 +61,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
-        <dependency>
-            <groupId>org.javassist</groupId>
-            <artifactId>javassist</artifactId>
-            <version>3.23.1-GA</version>
-            <scope>runtime</scope>
-        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>org.javassist</groupId>-->
+            <!--<artifactId>javassist</artifactId>-->
+            <!--<version>${java.assist.version}</version>-->
+            <!--<scope>runtime</scope>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -103,12 +106,7 @@
         <dependency>
             <groupId>org.javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>3.23.1-GA</version>
-        </dependency>
-        <dependency>
-            <groupId>org.hibernate.javax.persistence</groupId>
-            <artifactId>hibernate-jpa-2.1-api</artifactId>
-            <version>1.0.2.Final</version>
+            <version>${java.assist.version}</version>
         </dependency>
         <dependency>
             <groupId>org.jboss.spec.javax.transaction</groupId>
@@ -118,7 +116,7 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>2.20.0</version>
+            <version>${mockito.core.version}</version>
             <scope>test</scope>
         </dependency>
 
@@ -195,7 +193,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.1.0</version>
+                <version>3.1.1</version>
             </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
@@ -298,10 +296,16 @@
 
     <repositories>
         <repository>
-            <id>jvnet-nexus-staging</id>
-            <url>http://maven.java.net/content/repositories/staging/</url>
+            <id>central</id>
+            <url>http://central.maven.org/maven2/</url>
             <layout>default</layout>
         </repository>
+        <repository>
+            <id>jvnet-nexus-staging</id>
+            <url>http://maven.java.net/content/repositories/staging/</url>
+            <!--<layout>default</layout>-->
+        </repository>
+
         <repository>
             <id>spring-snapshots</id>
             <name>Spring Snapshots</name>

@@ -1,44 +1,37 @@
 
 plugins {
     id 'java-library'
-    // id 'org.springframework.boot'
 }
 
 apply plugin: 'io.spring.dependency-management'
 
+// org.springframework.samples.petclinic.PetClinicApplication
+
 dependencies {
-    // implementation 'com.google.guava:guava:22.0'
-    // implementation "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+
     implementation("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
         exclude group: "javax.annotation", module: "javax.annotation-api"
     }
-//    implementation("org.apache.tomcat:javax.annotation-api")
     implementation "org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-cache:${springBootVersion}"
     implementation "org.springframework.boot:spring-boot-starter-thymeleaf:${springBootVersion}"
     implementation("org.springframework.boot:spring-boot-starter-data-jpa:${springBootVersion}"){
         exclude group: "org.javassist", module: "javassist"
         exclude group: "javax.transaction", module: "javax.transaction-api"
+        exclude group: "javax.transaction-api", module: "javax.transaction"
     }
-
-//    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.0.Final'
 
     compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.4.0-b180830.0359'
 
-//    implementation("org.glassfish.jaxb:jaxb-runtime:2.4.0-b180608.0325")
     implementation "javax.cache:cache-api:${javaxCacheApiVersion}"
     implementation "org.ehcache:ehcache:${ehcacheVersion}"
-    compile group: 'org.hibernate.javax.persistence', name: 'hibernate-jpa-2.1-api', version: '1.0.2.Final'
     compile group: 'org.jboss.spec.javax.transaction', name: 'jboss-transaction-api_1.2_spec', version: '1.1.1.Final'
     compile group: 'org.javassist', name: 'javassist', version: '3.24.1-GA'
     compile group: 'javax.validation', name: 'validation-api', version: '2.0.1.Final'
 
     runtimeOnly("org.hsqldb:hsqldb:${hsqldbVersion}")
     runtimeOnly("org.postgresql:postgresql:${postgresqlVersion}")
-//    testImplementation 'org.springframework.boot:spring-boot-starter-test'
-
-    compile group: 'javax.transaction', name: 'javax.transaction-api', version: '1.3'
-    compile group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
+    testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}")
 
     compile group: 'org.hibernate.validator', name: 'hibernate-validator', version: '6.0.14.Final'
 
