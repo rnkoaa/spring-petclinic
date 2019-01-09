@@ -6,3 +6,12 @@ build
 target/
 
 .idea/
+
+.project
+.settings/
+.classpath
+
+postgres-data/
+*.ipr
+*.iws
+*.iml
